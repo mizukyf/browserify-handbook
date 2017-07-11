@@ -1,12 +1,12 @@
 # はじめに
 
-このドキュメントはモジュール化されたアプリケーションをビルドするために、どのようにして[browserify](http://browserify.org) を利用するかを説明するものです。
+このドキュメントは、モジュール化されたアプリケーションをビルドするために、どのようにして[browserify](http://browserify.org) を利用するかを説明するものです。
 
 [![cc-by-3.0](http://i.creativecommons.org/l/by/3.0/80x15.png)](http://creativecommons.org/licenses/by/3.0/)
 
 browserifyは[Node.jsにより拡張された](http://nodejs.org/docs/latest/api/modules.html) CommonJSモジュールをWebブラウザ向けにコンパイルするためのツールです。
 
-あなたはbrowserifyをあなたの製造したコードとサードパーティ製のライブラリ群を組み合わせるために利用することができます。仮にあなたがバンドル作成とnpmによるパッケージ・インストール以外の機能では [Node.js](http://nodejs.org) それ自体を利用していないとしてもです。
+もし仮にバンドル作成とnpmコマンドによるパッケージ・インストール以外では [Node.js](http://nodejs.org) それ自体を利用していないとしても、あなたはあなたの製造したコードとサードパーティ製のライブラリ群を組み合わせるためにbrowserifyを利用することができます。
 
 browserifyが利用するモジュール・システムはNode.jsが利用するそれと同じです。browserifyによって、[npm](https://npmjs.org) 向けに公開されたパッケージは、それが元来ブラウザのランタイムではなくNode.jsランタイムにおいて利用されることを想定して作成されたものであっても、ブラウザ上でも同じように機能します。
 
