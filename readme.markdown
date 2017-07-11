@@ -91,17 +91,15 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [using plugins](#using-plugins)
   - [authoring plugins](#authoring-plugins)
 
-# node packaged manuscript
+# Node.jsパッケージ化された原稿
 
-You can install this handbook with npm, appropriately enough. Just do:
+このハンドブックはnpmを通じてインストールが可能です。それには次のようにするだけです：
 
 ```
 npm install -g browserify-handbook
 ```
 
-Now you will have a `browserify-handbook` command that will open this readme
-file in your `$PAGER`. Otherwise, you may continue reading this document as you
-are presently doing.
+さあこれで、あなたは`browserify-handbook`コマンドを使うことができます。コマンドは`$PAGER`で指定されたペイジャーを利用してこのREADMEファイルを開きます。もちろんコマンドを利用せず現在そうしているようにこのドキュメントを読み続けていただいても構いません。
 
 # node packaged modules
 
