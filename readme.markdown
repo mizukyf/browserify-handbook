@@ -18,7 +18,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
 - [はじめに](#introduction)
 - [目次](#table-of-contents)
 - [Node.jsパッケージ化された原稿](#node-packaged-manuscript)
-- [node packaged modules](#node-packaged-modules)
+- [Node.jsパッケージ化されたモジュール](#node-packaged-modules)
   - [require](#require)
   - [exports](#exports)
   - [bundling for the browser](#bundling-for-the-browser)
@@ -101,12 +101,10 @@ npm install -g browserify-handbook
 
 さあこれで、あなたは`browserify-handbook`コマンドを使うことができます。コマンドは`$PAGER`で指定されたペイジャーを利用してこのREADMEファイルを開きます。もちろんコマンドを利用せず現在そうしているようにこのドキュメントを読み続けていただいても構いません。
 
-# node packaged modules
+# Node.jsパッケージ化されたモジュール
 
-Before we can dive too deeply into how to use browserify and how it works, it is
-important to first understand how the
-[node-flavored version](http://nodejs.org/docs/latest/api/modules.html)
-of the commonjs module system works.
+browserifyをどのように使用するか、そしてそれがどのように機能するかについて立ち入った話をする前に、まずは[Node.jsにより拡張された](http://nodejs.org/docs/latest/api/modules.html)
+CommonJSモジュール・システムがどのように機能するかについてまず理解することが重要です。
 
 ## require
 
