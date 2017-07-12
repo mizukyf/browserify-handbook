@@ -1,6 +1,6 @@
 # はじめに
 
-このドキュメントは、モジュール化されたアプリケーションをビルドするために、どのようにして[browserify](http://browserify.org) を利用するかを説明するものです。
+このドキュメントはモジュール化されたアプリケーションをビルドするためにどのようにして[browserify](http://browserify.org) を利用するかを説明するものです。
 
 [![cc-by-3.0](http://i.creativecommons.org/l/by/3.0/80x15.png)](http://creativecommons.org/licenses/by/3.0/)
 
@@ -8,16 +8,16 @@ browserifyは[Node.jsにより拡張された](http://nodejs.org/docs/latest/api
 
 もし仮にバンドル作成とnpmコマンドによるパッケージ・インストール以外では [Node.js](http://nodejs.org) それ自体を利用していないとしても、あなたはあなたの製造したコードとサードパーティ製のライブラリ群を組み合わせるためにbrowserifyを利用することができます。
 
-browserifyが利用するモジュール・システムはNode.jsが利用するそれと同じです。browserifyによって、[npm](https://npmjs.org) 向けに公開されたパッケージは、それが元来ブラウザのランタイムではなくNode.jsランタイムにおいて利用されることを想定して作成されたものであっても、ブラウザ上でも同じように機能します。
+browserifyが利用するモジュール・システムはNode.jsが利用するそれと同じです。[npm](https://npmjs.org) 向けに公開されたパッケージは、それが元来ブラウザのランタイムではなくNode.jsランタイムにおいて利用されることを想定して作成されたものであっても、browserifyによってブラウザ上でも同じように機能します。
 
 多くの人びとがNode.jsランタイム上だけでなくbrowserifyを利用することでWebブラウザ上でも動作するよう設計されたモジュールをnpm向けに公開しつつあります。そしてnpmで公開されている多くのパッケージはまさにWebブラウザ上での利用を想定して設計されるようになってきています。
 [npm はすべてのJavaScriptランタイムのために](http://maxogden.com/node-packaged-modules.html)利用できるものです。フロントエンドとバックエンドに大きなちがいはないのです。
 
 # table of contents
 
-- [introduction](#introduction)
-- [table of contents](#table-of-contents)
-- [node packaged manuscript](#node-packaged-manuscript)
+- [はじめに](#introduction)
+- [目次](#table-of-contents)
+- [Node.jsパッケージ化された原稿](#node-packaged-manuscript)
 - [node packaged modules](#node-packaged-modules)
   - [require](#require)
   - [exports](#exports)
