@@ -13,13 +13,13 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
 多くの人びとがNode.jsランタイム上だけでなくbrowserifyを利用することでWebブラウザ上でも動作するよう設計されたモジュールをnpm向けに公開しつつあります。そしてnpmで公開されている多くのパッケージはまさにWebブラウザ上での利用を想定して設計されるようになってきています。
 [npm はすべてのJavaScriptランタイムのために](http://maxogden.com/node-packaged-modules.html)利用できるものです。フロントエンドとバックエンドに大きなちがいはないのです。
 
-# table of contents
+# 目次
 
-- [はじめに](#introduction)
-- [目次](#table-of-contents)
-- [Node.jsパッケージ化された原稿](#node-packaged-manuscript)
-- [Node.jsパッケージ化されたモジュール](#node-packaged-modules)
-  - [require](#require)
+- [はじめに](#はじめに)
+- [目次](#目次)
+- [Node.jsパッケージ化された原稿](#Node.jsパッケージ化された原稿)
+- [Node.jsパッケージ化されたモジュール](#Node.jsパッケージ化されたモジュール)
+  - [require関数](#require関数)
   - [exports](#exports)
   - [bundling for the browser](#bundling-for-the-browser)
   - [how browserify works](#how-browserify-works)
