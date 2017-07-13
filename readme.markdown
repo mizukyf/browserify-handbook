@@ -106,17 +106,17 @@ npm install -g browserify-handbook
 browserifyをどのように使用するか、そしてそれがどのように機能するかについて立ち入った話をする前に、まずは[Node.jsにより拡張された](http://nodejs.org/docs/latest/api/modules.html)
 CommonJSモジュール・システムがどのように機能するかについてまず理解することが重要です。
 
-## require
+## require関数
 
-In node, there is a `require()` function for loading code from other files.
+Node.jsランタイムでは、他のファイルからコードを読み込むために`require()` 関数が利用されます。
 
-If you install a module with [npm](https://npmjs.org):
+例えば[npm](https://npmjs.org)コマンドでモジュールをインストールすると:
 
 ```
 npm install uniq
 ```
 
-Then in a file `nums.js` we can `require('uniq')`:
+`nums.js` ファイルの中で `require('uniq')` と関数を呼び出すことができます:
 
 ```
 var uniq = require('uniq');
@@ -124,42 +124,32 @@ var nums = [ 5, 2, 1, 3, 2, 5, 4, 2, 0, 1 ];
 console.log(uniq(nums));
 ```
 
-The output of this program when run with node is:
+Node.jsランタイムでこのプログラムを実行すると次のような出力がなされます:
 
 ```
 $ node nums.js
 [ 0, 1, 2, 3, 4, 5 ]
 ```
 
-You can require relative files by requiring a string that starts with a `.`. For
-example, to load a file `foo.js` from `main.js`, in `main.js` you can do:
+`.`で始まる文字列を使用して相対パスでファイルを指定することもできます。例えば`foo.js` from `main.js`ファイルから`foo.js`ファイルを読み込む場合、`main.js`の中で次のようにすることができます:
 
 ``` js
 var foo = require('./foo.js');
 console.log(foo(4));
 ```
 
-If `foo.js` was in the parent directory, you could use `../foo.js` instead:
+もし`foo.js`が親ディレクトリの配下に存在するのであれば、`../foo.js`と指定します:
 
 ``` js
 var foo = require('../foo.js');
 console.log(foo(4));
 ```
 
-or likewise for any other kind of relative path. Relative paths are always
-resolved with respect to the invoking file's location.
+同様にしてその他いかなる種類の相対パスも利用可能です。相対パスの解決は常に実行中のファイルのパスを基準にして行われます。
 
-Note that `require()` returned a function and we assigned that return value to a
-variable called `uniq`. We could have picked any other name and it would have
-worked the same. `require()` returns the exports of the module name that you
-specify.
+注意点として、この例では`require()`は関数を返しており私たちはその値を`uniq`という名前の変数に代入していますが、この名前は他のいかなるものであってもかわらず関数は機能します。 `require()` はあなたが指定した名前でモジュールが公開するAPIを利用できるようにしてくれます。
 
-How `require()` works is unlike many other module systems where imports are akin
-to statements that expose themselves as globals or file-local lexicals with
-names declared in the module itself outside of your control. Under the node
-style of code import with `require()`, someone reading your program can easily
-tell where each piece of functionality came from. This approach scales much
-better as the number of modules in an application grows.
+`require()`の機能の仕方は他の多くのモジュール・システムと異なっています。インポートは、あなたの制御の及ばないモジュール自体の中で宣言されたグローバル変数やファイル・ローカルなレキシカル・スコープ変数の宣言それ自体にそっくりです。`require()`によるNode.jsスタイルのインポートは、それぞれのモジュールがどこからやって来たものなのか、プログラムを読む人にとってわかりやすくできています。このアプローチの利点はアプリケーションを構成するモジュールの数が多くなるほど増していきます。
 
 ## exports
 
