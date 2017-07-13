@@ -20,7 +20,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
 - [Node.jsパッケージ化された原稿](#nodejsパッケージ化された原稿)
 - [Node.jsパッケージ化されたモジュール](#nodejsパッケージ化されたモジュール)
   - [require関数](#require関数)
-  - [exports](#exports)
+  - [exportsプロパティ](#exportsプロパティ)
   - [bundling for the browser](#bundling-for-the-browser)
   - [how browserify works](#how-browserify-works)
   - [how node_modules works](#how-node_modules-works)
@@ -151,10 +151,9 @@ console.log(foo(4));
 
 `require()`の機能の仕方は他の多くのモジュール・システムと異なっています。インポートは、あなたの制御の及ばないモジュール自体の中で宣言されたグローバル変数やファイル・ローカルなレキシカル・スコープ変数の宣言それ自体にそっくりです。`require()`によるNode.jsスタイルのインポートは、それぞれのモジュールがどこからやって来たものなのか、プログラムを読む人にとってわかりやすくできています。このアプローチの利点はアプリケーションを構成するモジュールの数が多くなるほど増していきます。
 
-## exports
+## exportsプロパティ
 
-To export a single thing from a file so that other files may import it, assign
-over the value at `module.exports`:
+他のファイルからインポートできるよう単一のオブジェクトをエクスポートする場合、次のように`module.exports`プロパティの値として代入を行います:
 
 ``` js
 module.exports = function (n) {
@@ -162,29 +161,28 @@ module.exports = function (n) {
 };
 ```
 
-Now when some module `main.js` loads your `foo.js`, the return value of
-`require('./foo.js')` will be the exported function:
+ここでとあるモジュール`main.js`があなたが最前作成したモジュール`foo.js`を読み込むものとします。`require('./foo.js')`の戻り値はモジュールがエクスポートしている関数になります:
 
 ``` js
 var foo = require('./foo.js');
 console.log(foo(5));
 ```
 
-This program will print:
+このプログラムは次のような出力を行うでしょう:
 
 ```
 555
 ```
 
-You can export any kind of value with `module.exports`, not just functions.
+`module.exports`を使えば関数に限らずいかなる値でもエクスポートできます。
 
-For example, this is perfectly fine:
+例えば、次のコードは完璧に機能します:
 
 ``` js
 module.exports = 555
 ```
 
-and so is this:
+それから次のコードも:
 
 ``` js
 var numbers = [];
@@ -193,28 +191,26 @@ for (var i = 0; i < 100; i++) numbers.push(i);
 module.exports = numbers;
 ```
 
-There is another form of doing exports specifically for exporting items onto an
-object. Here, `exports` is used instead of `module.exports`:
+オブジェクトのプロパティとして複数の項目をエクスポートするのに特化した別形式もあります。この場合は`module.exports`ではなく`exports`を使用します:
 
 ``` js
 exports.beep = function (n) { return n * 1000 }
 exports.boop = 555
 ```
 
-This program is the same as:
+このプログラムは次のものと同じ意味になります:
 
 ``` js
 module.exports.beep = function (n) { return n * 1000 }
 module.exports.boop = 555
 ```
 
-because `module.exports` is the same as `exports` and is initially set to an
-empty object.
+`module.exports`は`exports`と同義で、空のオブジェクトで初期化されています。
 
-Note however that you can't do:
+注意点として、次のようにすることはできません:
 
 ``` js
-// this doesn't work
+// これは機能しない
 exports = function (n) { return n * 1000 }
 ```
 
