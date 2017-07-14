@@ -277,27 +277,25 @@ var foo = require('./foo.js');
 console.log(foo(5));
 ```
 
-## bundling for the browser
+## ブラウザのためのバンドル化
 
-To run a module in node, you've got to start from somewhere.
+Node.jsランタイムでモジュールのコードを動かすには、どこかから起動をする必要があります。
 
-In node you pass a file to the `node` command to run a file:
+Node.jsランタイムでモジュールを動かすには`node`コマンドにファイルを渡します:
 
 ```
 $ node robot.js
 beep boop
 ```
 
-In browserify, you do this same thing, but instead of running the file, you
-generate a stream of concatenated javascript files on stdout that you can write
-to a file with the `>` operator:
+In browserifyを使う場合、モジュールを実行するには、ファイルを指定して実行するのではなく、JavaScriptファイル群を連結したストリームを標準出力に出力し、これを`>`演算子でファイルに書き出します:
 
 ```
 $ browserify robot.js > bundle.js
 ```
 
-Now `bundle.js` contains all the javascript that `robot.js` needs to work.
-Just plop it into a single script tag in some html:
+この時点で`bundle.js`には`robot.js`を実行するのに必要なすべてのJavaScriptコードが含まれている状態になります。
+そしてこのファイルへの参照をHTMLファイルのscriptタグに設定します:
 
 ``` html
 <html>
@@ -307,11 +305,9 @@ Just plop it into a single script tag in some html:
 </html>
 ```
 
-Bonus: if you put your script tag right before the `</body>`, you can use all of
-the dom elements on the page without waiting for a dom onready event.
+付言しておくと、`</body>`の直前にscriptタグを配置することで、あなたのコードはDOMのonreadyイベントを待つことなくすべてのDOM要素にアクセスすることができます。
 
-There are many more things you can do with bundling. Check out the bundling
-section elsewhere in this document.
+バンドル化により行えることはもっとたくさんあります。バンドル化のセクションを確認してみてください。
 
 ## how browserify works
 
