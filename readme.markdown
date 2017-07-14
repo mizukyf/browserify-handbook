@@ -22,7 +22,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [require関数](#require関数)
   - [exportsプロパティ](#exportsプロパティ)
   - [ブラウザのためのバンドル化](#ブラウザのためのバンドル化)
-  - [how browserify works](#how-browserify-works)
+  - [browserifyのはたらき方](#browserifyのはたらき方)
   - [how node_modules works](#how-node_modules-works)
   - [why concatenate](#why-concatenate)
 - [development](#development)
@@ -309,26 +309,23 @@ $ browserify robot.js > bundle.js
 
 バンドル化により行えることはもっとたくさんあります。バンドル化のセクションを確認してみてください。
 
-## how browserify works
+## browserifyのはたらき方
 
-Browserify starts at the entry point files that you give it and searches for any
-`require()` calls it finds using
-[static analysis](http://npmjs.org/package/detective)
-of the source code's
-[abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+browserifyは指定されたエントリーポイントとなるファイルから処理をはじめ、
+ソースコードの[抽象構文木](https://en.wikipedia.org/wiki/Abstract_syntax_tree)を
+[静的解析](http://npmjs.org/package/detective)することにより見つかった
+`require()`呼び出しを順番に辿っていきます。
 
-For every `require()` call with a string in it, browserify resolves those module
-strings to file paths and then searches those file paths for `require()` calls
-recursively until the entire dependency graph is visited.
+すべての`require()`呼び出しについて、browserifyは指定されたモジュール名からファイルパスを導出し、
+当該のモジュールのファイルを検索します。
+`require()`の再帰的な呼び出しが形づくる依存性グラフのすべてを辿り尽くすまでこの手続きは終わりません。
 
-Each file is concatenated into a single javascript file with a minimal
-`require()` definition that maps the statically-resolved names to internal IDs.
+静的解決されたモジュール名と内部的なIDを紐付けるマップである`require()`に関する最小限の定義情報とともに、
+各ファイルは単一のJavaScriptファイルに連結されます。
 
-This means that the bundle you generate is completely self-contained and has
-everything your application needs to work with a pretty negligible overhead.
+バンドルは完全に自己完結しており、あなたのアプリケーションが必要とするすべてのコードを内包しています。
 
-For more details about how browserify works, check out the compiler pipeline
-section of this document.
+browserifyのはたらき方についてより詳しくは、コンパイラ・パイプラインのセクションを参照してください。
 
 ## how node_modules works
 
