@@ -21,7 +21,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
 - [Node.jsパッケージ化されたモジュール](#nodejsパッケージ化されたモジュール)
   - [require関数](#require関数)
   - [exportsプロパティ](#exportsプロパティ)
-  - [bundling for the browser](#bundling-for-the-browser)
+  - [ブラウザのためのバンドル化](#ブラウザのためのバンドル化)
   - [how browserify works](#how-browserify-works)
   - [how node_modules works](#how-node_modules-works)
   - [why concatenate](#why-concatenate)
