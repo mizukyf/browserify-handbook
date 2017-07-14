@@ -214,40 +214,40 @@ module.exports.boop = 555
 exports = function (n) { return n * 1000 }
 ```
 
-because the export value lives on the `module` object, and so assigning a new
-value for `exports` instead of `module.exports` masks the original reference.
+畢竟エクスポートされるのは`module.exports`が参照するオブジェクトであり、
+`exports`にはその初期値の空のオブジェクトへの参照がコピーされているだけなので、
+`exports`に新しいオブジェクトを代入してしまうと当初参照していた空のオブジェクトへの参照が覆い隠されてしまいます。
 
-Instead if you are going to export a single item, always do:
+したがって単一の項目をエクスポートするときにはいつでも次のようにします:
 
 ``` js
 // instead
 module.exports = function (n) { return n * 1000 }
 ```
 
-If you're still confused, try to understand how modules work in
-the background:
+もしまだ得心できないようであれば、バックグラウンドでモジュールがどのようにはたらいているかを考えてみましょう:
 
 ``` js
 var module = {
   exports: {}
 };
 
-// If you require a module, it's basically wrapped in a function
+// モジュール定義部は関数にくるまれる
 (function(module, exports) {
+  // module.exportsが参照するのと同じ{}への参照を、別の値への参照で上書きしてしまう
   exports = function (n) { return n * 1000 };
 }(module, module.exports))
 
-console.log(module.exports); // it's still an empty object :(
+// module.exportsは引続き{}を参照している
+console.log(module.exports);
 ```
 
-Most of the time, you will want to export a single function or constructor with
-`module.exports` because it's usually best for a module to do one thing.
+ふつう1つのモジュールは1つのことをもっぱらとするのがベストなので、大抵の場合`module.exports`でエクスポートするのは1つの関数かコンストラクタになるでしょう。
 
-The `exports` feature was originally the primary way of exporting functionality
-and `module.exports` was an afterthought, but `module.exports` proved to be much
-more useful in practice at being more direct, clear, and avoiding duplication.
+実はエクスポートの手段としては`exports`がもともとのものであり、`module.exports`は後発にほかならないのですが、
+`module.exports`の方がより直接的で、明確で、重複を避けられる点で便利なものだということがわかりました。
 
-In the early days, this style used to be much more common:
+当初は次のような書き方の方がより一般的なものでした:
 
 foo.js:
 
@@ -262,8 +262,7 @@ var foo = require('./foo.js');
 console.log(foo.foo(5));
 ```
 
-but note that the `foo.foo` is a bit superfluous. Using `module.exports` it
-becomes more clear:
+しかし`foo.foo`という記述はちょっと冗長なものに見えないでしょうか。`module.exports`を使用したほうがより明確です:
 
 foo.js:
 
