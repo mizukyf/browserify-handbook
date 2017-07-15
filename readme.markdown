@@ -575,48 +575,49 @@ package.jsonの"scripts"フィールドに次のように記述すると、watch
 
 ### [beefy](https://www.npmjs.org/package/beefy)
 
-If you would rather spin up a web server that automatically recompiles your code
-when you modify it, check out [beefy](http://didact.us/beefy/).
+コードが変更されたときそれを自動で再コンパイルしてくれるWebサーバを求めているのであれば、
+[beefy](http://didact.us/beefy/)について調べてみてください。
 
-Just give beefy an entry file:
+この開発サーバを起動するにはエントリーポイントとなるファイルを指定します:
 
 ```
 beefy main.js
 ```
 
-and it will set up shop on an http port.
+これだけでデフォルトのポート番号で開発サーバが起動します。
 
 ### [wzrd](https://github.com/maxogden/wzrd)
 
-In a similar spirit to beefy but in a more minimal form is
-[wzrd](https://github.com/maxogden/wzrd).
+beefyと似ていますがより小ぶりの開発サーバとして[wzrd](https://github.com/maxogden/wzrd)があります。
 
-Just `npm install -g wzrd` then you can do:
+`npm install -g wzrd`コマンドでインストールしたら、次のように起動します:
 
 ```
 wzrd app.js
 ```
 
-and open up http://localhost:9966 in your browser.
+そして http://localhost:9966 をWebブラウザで開きます。
 
-### browserify-middleware, enchilada
+### browserify-middlewareとenchilada
 
-If you are using express, check out
+expressを利用している場合は
 [browserify-middleware](https://www.npmjs.org/package/browserify-middleware)
-or [enchilada](https://www.npmjs.org/package/enchilada).
+もしくは[enchilada](https://www.npmjs.org/package/enchilada)
+について調べてみてください。
 
-They both provide middleware you can drop into an express application for
-serving browserify bundles.
+いずれのモジュールもexpressアプリケーションにbrowserifyバンドルのクライアント側に配信させるための
+ミドルウェアを提供するものです。
 
 ### [livereactload](https://github.com/milankinen/livereactload)
 
-livereactload is a tool for [react](https://github.com/facebook/react)
-that automatically updates your web page state when you modify your code.
+livereactloadは[react](https://github.com/facebook/react)アプリケーションのためのツールです。
+コードが変更されるとツールによりあなたのWebページの状態も更新されます。
 
-livereactload is just an ordinary browserify transform that you can load with
-`-t livereactload`, but you should consult the
-[project readme](https://github.com/milankinen/livereactload#livereactload)
-for more information.
+livereactloadは何の変哲もないbrowserifyのトランスフォームの1つとして実装されており、
+`-t livereactload`オプションを指定することでこのトランスフォームを読み込むことができます。
+より詳しい情報を得るため
+[プロジェクトのREADME](https://github.com/milankinen/livereactload#livereactload)
+を参照することを強くおすすめします。
 
 ### [browserify-hmr](https://github.com/AgentME/browserify-hmr)
 
