@@ -605,7 +605,7 @@ expressを利用している場合は
 もしくは[enchilada](https://www.npmjs.org/package/enchilada)
 について調べてみてください。
 
-いずれのモジュールもexpressアプリケーションにbrowserifyバンドルのクライアント側に配信させるための
+いずれのモジュールもexpressアプリケーションにbrowserifyバンドルを配信させるための
 ミドルウェアを提供するものです。
 
 ### [livereactload](https://github.com/milankinen/livereactload)
