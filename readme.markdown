@@ -417,23 +417,25 @@ browserifyの処理はビルド・ステップで行われます。
 しかしブラウザのために開発されたモジュール・システムには異なるアプローチをとるものもあります。
 それらの強みと弱みについて見ていきましょう:
 
-### window globals
+### windowグローバル変数
 
-Instead of a module system, each file defines properties on the window global
-object or develops an internal namespacing scheme.
+アプリケーションを構成する各ファイルが、特定のモジュール・システムを利用せず、
+windowグローバルなオブジェクトを定義したり、独自の内部的な名前空間を作り上げているケース。
 
-This approach does not scale well without extreme diligence since each new file
-needs an additional `<script>` tag in all of the html pages where the
-application will be rendered. Further, the files tend to be very order-sensitive
-because some files need to be included before other files the expect globals to
-already be present in the environment.
+このアプローチでは、アプリケーションが表示する各ページのHTMLすべてについて
+必要となる新しいJavaScriptファイルのための`<script>`を追加するという、
+恐るべき労苦なしにアプリケーションの拡張ができません。
+加えてまた、それらのファイルの順序関係が問題となります。
+あるファイル群は別のファイル群が読み込まれる前に読み込まれていないといけない、
+なぜなら後者のファイル群では前者のファイル群により定義される
+グローバル変数が環境上にすでに存在していることを前提に動作するから、・・・と言った具合にです。
 
-It can be difficult to refactor or maintain applications built this way.
-On the plus side, all browsers natively support this approach and no server-side
-tooling is required.
+この方法でビルドされたアプリケーションのリファクタリングやメンテナンスは困難なものとなるでしょう。
+この方法の強みは、すべてのブラウザがネイティブにサポートしており、
+ビルドのために追加のツールが一切不要であるということです。
 
-This approach tends to be very slow since each `<script>` tag initiates a
-new round-trip http request.
+各`<script>`タグは新たなHTTPリクエストのやり取りを発生させるので、
+このアプローチはアプリケーションのスタートが遅くなるという問題も抱えています。
 
 ### concatenate
 
