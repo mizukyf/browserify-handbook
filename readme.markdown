@@ -420,7 +420,7 @@ browserifyの処理はビルド・ステップで行われます。
 ### windowグローバル変数
 
 アプリケーションを構成する各ファイルが、特定のモジュール・システムを利用せず、
-windowグローバルなオブジェクトを定義したり、独自の内部的な名前空間を作り上げているケース。
+windowグローバルなオブジェクトを定義したり、独自の内部的な名前空間を作り上げたりするアプローチです。
 
 このアプローチでは、アプリケーションが表示する各ページのHTMLすべてについて
 必要となる新しいJavaScriptファイルのための`<script>`を追加するという、
@@ -437,23 +437,23 @@ windowグローバルなオブジェクトを定義したり、独自の内部�
 各`<script>`タグは新たなHTTPリクエストのやり取りを発生させるので、
 このアプローチはアプリケーションのスタートが遅くなるという問題も抱えています。
 
-### concatenate
+### ファイル連結
 
-Instead of window globals, all the scripts are concatenated beforehand on the
-server. The code is still order-sensitive and difficult to maintain, but loads
-much faster because only a single http request for a single `<script>` tag needs
-to execute.
+サーバ側で事前にすべてのスクリプトを連結するアプローチです。
+このコードは依然として順序関係の問題と、メンテナンスが困難である問題を抱えています。
+しかし`<script>`タグによるHTTPリクエストは1回だけになるので、
+アプリケーションの読み込み時間は改善されます。
 
-Without source maps, exceptions thrown will have offsets that can't be easily
-mapped back to their original files.
+ただしソースマップなしには、例外がスローされたコードの位置と
+連結前のオリジナルのファイルにおけるコードの位置とを対応させることができません。
 
 ### AMD
 
-Instead of using `<script>` tags, every file is wrapped with a `define()`
-function and callback. [This is AMD](http://requirejs.org/docs/whyamd.html).
+`define()`関数とその引数として渡すコールバック関数により各モジュールをくるむアプローチです。
+[これをAMDといいます](http://requirejs.org/docs/whyamd.html)。
 
-The first argument is an array of modules to load that maps to each argument
-supplied to the callback. Once all the modules are loaded, the callback fires.
+第1引数はロードするモジュール名の配列で、それらのモジュールはロードされたあと
+第2引数のコールバックの引数として、配列内で指定された順序で渡されます。
 
 ``` js
 define(['jquery'] , function ($) {
@@ -461,37 +461,36 @@ define(['jquery'] , function ($) {
 });
 ```
 
-You can give your module a name in the first argument so that other modules can
-include it.
+`define()`関数の第1引数により、あなたは自身のモジュールに名前を付与することができます。
+こうすることであなたのモジュールを他のモジュールが読み込むことも可能になります。
 
-There is a commonjs sugar syntax that stringifies each callback and scans it for
-`require()` calls
-[with a regexp](https://github.com/jrburke/requirejs/blob/master/require.js#L17).
+AMDではCommonJSの糖衣構文も用意されてます。
+コールバックのコードは文字列としてAMDにより解析され、
+[正規表現によって](https://github.com/jrburke/requirejs/blob/master/require.js#L17)`require()`の呼び出しが検出されます。
 
-Code written this way is much less order-sensitive than concatenation or globals
-since the order is resolved by explicit dependency information.
+この方法で記述されたコードでは、モジュールの依存関係が明示的に示されていることで、
+読み込み順序を適切に解決できるため、ファイル連結やwindowグローバル変数のアプローチに比べて
+順序関係の問題が低減されています。
 
-For performance reasons, most of the time AMD is bundled server-side into a
-single file and during development it is more common to actually use the
-asynchronous feature of AMD.
+ふつうAMDを利用する場合、パフォーマンス上の観点からモジュールはサーバ側で単一ファイルにバンドル化されます。
+そして開発中だけAMDの非同期読み込みの機能が利用されます。
 
-### bundling commonjs server-side
+### CommonJSモジュールをサーバ側でバンドル化
 
-If you're going to have a build step for performance and a sugar syntax for
-convenience, why not scrap the whole AMD business altogether and bundle
-commonjs? With tooling you can resolve modules to address order-sensitivity and
-your development and production environments will be much more similar and less
-fragile. The CJS syntax is nicer and the ecosystem is exploding because of node
-and npm.
+どうせパフォーマンス上の理由でビルド・ステップを踏む必要があり、
+`require()`の糖衣構文を利用することになるのであれば、
+AMDの作業をすべて廃しCommonJSモジュールを直接バンドル化するのが理にかなっているでしょう。
+バンドル化のツールにより順序問題は解消され、
+開発環境も本番環境もより似通った状態となり安定性を増します。
+CommonJSの構文はよくできており、そのエコシステムはNode.jsとnpmのおかげで急拡大を続けています。
 
-You can seamlessly share code between node and the browser. You just need a
-build step and some tooling for source maps and auto-rebuilding.
+あなたはNode.jsランタイムとブラウザのランタイムとの間でシームレスにコードを共有できます。
+必要なのはビルド・ステップと、ソースマップを生成するツール、そして自動リビルドのためのツールだけです。
 
-Plus, we can use node's module lookup algorithms to save us from version
-mismatch insanity so that we can have multiple conflicting versions of different
-required packages in the same application and everything will still work. To
-save bytes down the wire you can dedupe, which is covered elsewhere in this
-document.
+加えるに、私たちはNode.jsのモジュール検索アルゴリズムを使用することで、
+バージョン・ミスマッチから来る神経衰弱から自身を守ることもできます。
+同一アプリケーションの中で読み込んでいるモジュールのバージョン競合を気にする必要はありません。
+読み込みバイト数の削減のため重複排除も行われます。これについてはこの資料の別の場所で説明しています。
 
 # development
 
