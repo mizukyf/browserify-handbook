@@ -24,7 +24,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [ブラウザのためのバンドル化](#ブラウザのためのバンドル化)
   - [browserifyのはたらき方](#browserifyのはたらき方)
   - [node_modulesのはたらき方](#node_modulesのはたらき方)
-  - [why concatenate](#why-concatenate)
+  - [なぜ連結するのか](#なぜ連結するのか)
 - [development](#development)
   - [source maps](#source-maps)
     - [exorcist](#exorcist)
@@ -409,13 +409,13 @@ npmのような非・中央集権的なエコシステムにおいて、
 `node_modules/`のはたらき方を変更することが可能です。
 この点について詳しくは `avoiding ../../../../../../..`セクションを参照してください。
 
-## why concatenate
+## なぜ連結するのか
 
-Browserify is a build step that runs on the server. It generates a single bundle
-file that has everything in it.
+browserifyの処理はビルド・ステップで行われます。
+アプリケーションの動作に必要なコードは連結され、生成されたバンドル・ファイルにはすべてが内包た状態となります。
 
-Here are some other ways of implementing module systems for the browser and what
-their strengths and weaknesses are:
+しかしブラウザのために開発されたモジュール・システムには異なるアプローチをとるものもあります。
+それらの強みと弱みについて見ていきましょう:
 
 ### window globals
 
