@@ -541,13 +541,13 @@ APIの内部におけるコードの経年劣化を生じさせるでしょう�
 
 ### [watchify](https://npmjs.org/package/watchify)
 
-You can use `watchify` interchangeably with `browserify` but instead of writing
-to an output file once, watchify will write the bundle file and then watch all
-of the files in your dependency graph for changes. When you modify a file, the
-new bundle file will be written much more quickly than the first time because of
-aggressive caching.
+`watchify`は`browserify`と同じように使用できるツールですが、
+バンドル化されたファイルの出力を行うだけでなく
+依存性グラフに含まれるすべてのファイル群の変更を監視します。
+ファイルの変更を検知すると再度バンドル化が行われファイルが出力されます。
+この処理はキャッシュの仕組みにより初回のバンドル化よりも高速に行われます。
 
-You can use `-v` to print a message every time a new bundle is written:
+`-v`フラグを使用することでバンドル化が行われるたびにメッセージを出力させることができます:
 
 ```
 $ watchify browser.js -d -o static/bundle.js -v
@@ -559,8 +559,7 @@ $ watchify browser.js -d -o static/bundle.js -v
 610597 bytes written to static/bundle.js  0.19s
 ```
 
-Here is a handy configuration for using watchify and browserify with the
-package.json "scripts" field:
+package.jsonの"scripts"フィールドに次のように記述すると、watchifyとbrowserifyを使用するのに便利です:
 
 ``` json
 {
@@ -569,10 +568,10 @@ package.json "scripts" field:
 }
 ```
 
-To build the bundle for production do `npm run build` and to watch files for
-during development do `npm run watch`.
+本番稼動フェーズのためにバンドル化するときは`npm run build`を実行し、
+開発フェーズの間ファイル監視をするときは`npm run watch`を実行します。
 
-[Learn more about `npm run`](http://substack.net/task_automation_with_npm_run).
+[`npm run`についてより詳しくはこちらを参照してください](http://substack.net/task_automation_with_npm_run)。
 
 ### [beefy](https://www.npmjs.org/package/beefy)
 
