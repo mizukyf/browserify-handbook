@@ -1,6 +1,6 @@
 # はじめに
 
-このドキュメントはモジュール化されたアプリケーションをビルドするためにどのようにして[browserify](http://browserify.org) を利用するかを説明するものです。
+このドキュメントはモジュール化されたアプリケーションをビルドするために[browserify](http://browserify.org) を利用する方法を説明したものです。
 
 [![cc-by-3.0](http://i.creativecommons.org/l/by/3.0/80x15.png)](http://creativecommons.org/licenses/by/3.0/)
 
