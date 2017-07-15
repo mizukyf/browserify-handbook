@@ -525,19 +525,19 @@ browserify main.js --debug | exorcist bundle.js.map > bundle.js
 これらのうちいくつかは、様々なレベルのライブ・リローディング機能を提供しています。
 それ以外のツールは再コンパイル後に伝統的な手動再読込みを必要とします。
 
-These are just a few of the tools you can use, but there are many more on npm!
-There are many different tools here that encompass many different tradeoffs and
-development styles. It can be a little bit more work up-front to find the tools
-that responate most strongly with your own personal expectations and experience,
-but I think this diversity helps programmers to be more effective and provides
-more room for creativity and experimentation. I think diversity in tooling and a
-smaller browserify core is healthier in the medium to long term than picking a
-few "winners" by including them in browserify core (which creates all kinds of
-havoc in meaningful versioning and bitrot in core).
+実際にあなたが使うことになるツールはわずかでしょうが、npmにはたくさんのツールが存在します。
+多くの異なるトレードオフと開発スタイルを持つツール群です。
+あなた自身の個人的な期待や経験に照らして最適なツールを見つけるのにちょっとばかり苦労するかもしれませんが、
+しかしこの多様性は開発者の生産性を高め、創造と試行錯誤のための場を提供してくれるものでもあります。
+思うに、ツールの多様性と小ぶりのbrowserifyコアAPIが独立して並存している状況は、
+わずかな「勝者たち」がbrowserifyコアAPIを取り込まれて特別扱いされるような状況
+（それはAPIのバージョンが意味するところをめぐるあらゆる種類の混乱と、
+APIの内部におけるコードの経年劣化を生じさせるでしょう）よりも、
+中長期的にみて健全なものでしょう。
 
-That said, here are a few modules you might want to consider for setting up a
-browserify development workflow. But keep an eye out for other tools not (yet)
-on this list!
+ここで紹介するのはbrowserifyを利用した開発ワークフローをセットアップするために
+あなたが必要とするであろうモジュール群です。
+けれどもこのリストに（まだ）含まれていないその他のツールにも目を光らせておいてください。
 
 ### [watchify](https://npmjs.org/package/watchify)
 
