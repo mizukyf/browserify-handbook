@@ -353,7 +353,7 @@ Node.jsは最初に見つかった`xyz/package.json`の中に`"main"`フィー�
 読み込まれるべきファイルを規定する項目です。
 
 例えば、`/beep/node_modules/xyz`が一番はじめにマッチしたディレクトリで、
-その`/beep/node_modules/xyz/package.json`が次のようなコード出会った場合:
+その`/beep/node_modules/xyz/package.json`の内容が次のようなコードであった場合:
 
 ```
 {
