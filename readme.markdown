@@ -518,12 +518,12 @@ browserifyはソースマップを有効化するための`--debug`/`-d`フラ�
 browserify main.js --debug | exorcist bundle.js.map > bundle.js
 ```
 
-## auto-recompile
+## 自動再コンパイル
 
-Running a command to recompile your bundle every time can be slow and tedious.
-Luckily there are many tools to solve this problem. Some of these tools support
-live-reloading to various degrees and others have a more traditional manual
-refresh cycle.
+バンドルの再コンパイルのために都度コマンドを実行していては開発スピードは低下しますし、だいいち面倒です。
+幸いにも、この問題を解決してくれるツールはたくさんあります。
+これらのうちいくつかは、様々なレベルのライブ・リローディング機能を提供しています。
+それ以外のツールは再コンパイル後に伝統的な手動再読込みを必要とします。
 
 These are just a few of the tools you can use, but there are many more on npm!
 There are many different tools here that encompass many different tradeoffs and
