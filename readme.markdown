@@ -621,13 +621,13 @@ livereactloadは何の変哲もないbrowserifyのトランスフォームの1�
 
 ### [browserify-hmr](https://github.com/AgentME/browserify-hmr)
 
-browserify-hmr is a plugin for doing hot module replacement (hmr).
+browserify-hmrは動的モジュール置換（Hot Module Replacement）を行うためのプラグインです。
 
-Files can mark themselves as accepting updates. If you modify a file that
-accepts updates of itself, or if you modify a dependency of a file that accepts
-updates, then the file is re-executed with the new code.
+個々のファイルは自身で動的更新を受け容れるかどうかを指定します。
+更新を受け容れると指定しているファイルやその依存性が更新されると、
+当該ファイルの新しいコードが再実行されます。
 
-For example, if we have a file, `main.js`:
+例えば、ここに`main.js`というファイルがあります:
 
 ``` js
 document.body.textContent = require('./msg.js')
@@ -635,40 +635,39 @@ document.body.textContent = require('./msg.js')
 if (module.hot) module.hot.accept()
 ```
 
-and a file `msg.js`:
+そして`msg.js`というファイルも:
 
 ``` js
 module.exports = 'hey'
 ```
 
-We can watch `main.js` for changes and load the `browserify-hmr` plugin:
+`browserify-hmr`プラグインを使ってこの`main.js`の変更を監視し再読み込みさせることができます:
 
 ```
 $ watchify main.js -p browserify-hmr -o public/bundle.js -dv
 ```
 
-and serve up the static file contents in `public/` with a static file server:
+`public/`配下の静的コンテンツを静的ファイル・サーバを使ってクライアント側に配信します:
 
 ```
 $ ecstatic public -p 8000
 ```
 
-Now if we load `http://localhost:8000`, we see the message `hey` on the page.
+この時点でブラウザを使って`http://localhost:8000`を閲覧すると、Webページには`hey`と表示されます。
 
-If we change `msg.js` to be:
+もし`msg.js`を次のように変更すると:
 
 ``` js
 module.exports = 'wow'
 ```
 
-then a second later, the page updates to show `wow` all by itself.
+すぐさまWebページのコンテンツが自動的に更新され`wow`と表示されるでしょう。
 
-Browserify-HMR can be used with
-[react-hot-transform](https://github.com/AgentME/react-hot-transform) to
-automatically allow all React components to be updated live in addition to code
-using the `module.hot` API. Unlike
-[livereactload](https://github.com/milankinen/livereactload), only modified
-files are re-executed instead of the whole bundle on each modification.
+browserify-hmrと[react-hot-transform](https://github.com/AgentME/react-hot-transform)
+を併用することで、`module.hot`APIを使用するコードに加えて
+Reactのコンポーネントについても自動更新させることができるようになります。
+変更されるたびバンドル化が行われる[livereactload](https://github.com/milankinen/livereactload)とちがい、
+変更されたファイルが再実行されるだけです。
 
 ### [budo](https://github.com/mattdesl/budo)
 
