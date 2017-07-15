@@ -36,7 +36,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
     - [livereactload](#livereactload)
     - [browserify-hmr](#browserify-hmr)
     - [budo](#budo)
-  - [using the api directly](#using-the-api-directly)
+  - [APIを直接利用する](#apiを直接利用する)
   - [grunt](#grunt)
   - [gulp](#gulp)
 - [builtins](#builtins)
@@ -699,10 +699,9 @@ budo app.js
 budo app.js --live
 ```
 
-## using the api directly
+## APIを直接利用する
 
-You can just use the API directly from an ordinary `http.createServer()` for
-development too:
+開発のため`http.createServer()`から直接browserifyが公開するAPIを利用することもできます:
 
 ``` js
 var browserify = require('browserify');
