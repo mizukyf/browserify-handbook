@@ -522,7 +522,7 @@ browserify main.js --debug | exorcist bundle.js.map > bundle.js
 
 バンドルの再コンパイルのために都度コマンドを実行していては開発スピードは低下しますし、だいいち面倒です。
 幸いにも、この問題を解決してくれるツールはたくさんあります。
-これらのうちいくつかは、様々なレベルのライブ・リローディング機能を提供しています。
+これらのうちいくつかは、様々なレベルのライブ・リロード（LiveReload）機能を提供しています。
 それ以外のツールは再コンパイル後に伝統的な手動再読込みを必要とします。
 
 実際にあなたが使うことになるツールはわずかでしょうが、npmにはたくさんのツールが存在します。
@@ -671,23 +671,29 @@ Reactのコンポーネントについても自動更新させることができ
 
 ### [budo](https://github.com/mattdesl/budo)
 
-budo is a browserify development server with a stronger focus on incremental bundling and LiveReload integration (including CSS injection).
+budoはインクリメンタル・ビルドとライブ・リロード（LiveReload）機能の統合（CSSインジェクションを含む）に
+強く焦点を絞ったbrowserify開発サーバの1つです。
 
-Install it like so:
+次のようにインストールし:
 
 ```sh
 npm install budo -g
 ```
 
-And run it on your entry file:
+エントリーファイルを指定して実行します:
 
 ```
 budo app.js
 ```
 
-This starts the server at [http://localhost:9966](http://localhost:9966) with a default `index.html`, incrementally bundling your source on filesave. The requests are delayed until the bundle has finished, so you won't be served stale or empty bundles if you refresh the page mid-update.
+こうすることでWebサーバが起動し、ブラウザで[http://localhost:9966](http://localhost:9966)
+にアクセスするとデフォルトの`index.html`ファイルが配信されます。
+ファイルを変更し保存するとインクリメンタル・ビルドが行われます。
+リクエストへの応答はバンドル化が完了するまで遅らせられるので、
+ファイルの更新中に古いバンドルや空っぽのバンドルが配信される心配はありません。
 
-To enable LiveReload and have the browser refresh on JS/HTML/CSS changes, you can run it like so:
+ライブ・リロード（LiveReload）を有効にしてJS/HTML/CSSファイルが更新されるたびブラウザに再読み込みをさせるには、
+次のようにします:
 
 ```
 budo app.js --live
