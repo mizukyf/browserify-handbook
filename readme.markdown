@@ -32,7 +32,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
     - [watchify](#watchify)
     - [beefy](#beefy)
     - [wzrd](#wzrd)
-    - [browserify-middleware, enchilada](#browserify-middleware-enchilada)
+    - [browserify-middlewareとenchilada](#browserify-middlewareとenchilada)
     - [livereactload](#livereactload)
     - [browserify-hmr](#browserify-hmr)
     - [budo](#budo)
