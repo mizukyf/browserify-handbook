@@ -492,30 +492,27 @@ CommonJSの構文はよくできており、そのエコシステムはNode.js�
 同一アプリケーションの中で読み込んでいるモジュールのバージョン競合を気にする必要はありません。
 読み込みバイト数の削減のため重複排除も行われます。これについてはこの資料の別の場所で説明しています。
 
-# development
+# 開発
 
-Concatenation has some downsides, but these can be very adequately addressed
-with development tooling.
+コード連結にいくらか負の側面があることは事実ですが、
+開発ツールを利用することでそれらの問題に対して適切に対処することができます。
 
-## source maps
+## ソースマップ
 
-Browserify supports a `--debug`/`-d` flag and `opts.debug` parameter to enable
-source maps. Source maps tell the browser to convert line and column offsets for
-exceptions thrown in the bundle file back into the offsets and filenames of the
-original sources.
+browserifyはソースマップを有効化するための`--debug`/`-d`フラグと`opts.debug`パラメータをサポートしています。
+ソースマップはWebブラウザに対してバンドル化されたJavaScriptコードの行と列の位置情報を
+オリジナルのファイルの行と列の位置情報に変換する方法を提示します。
 
-The source maps include all the original file contents inline so that you can
-simply put the bundle file on a web server and not need to ensure that all the
-original source contents are accessible from the web server with paths set up
-correctly.
+ソースマップはすべてのオリジナル・ファイルの内容をインラインで保持しています。
+このため、すべてのオリジナルのファイルがWebサーバ上の適切なパスに存在するかどうか確認する必要はなく、
+バンドル化されたJavaScriptファイルをWebサーバ上に配備するだけでよいのです。
 
 ### exorcist
 
-The downside of inlining all the source files into the inline source map is that
-the bundle is twice as large. This is fine for debugging locally but not
-practical for shipping source maps to production. However, you can use
-[exorcist](https://npmjs.org/package/exorcist) to pull the inline source map out
-into a separate `bundle.map.js` file:
+コード連結の負の側面の1つは、すべてのオリジナルのファイルの内容がインライン化されたソースマップ内に保持されているためにバンドルのサイズが倍化してしまうことです。
+ローカルでデバッグを行う分にはこれでもよいのですが、このままソースマップを本番環境に投入するのは現実的ではありません。
+この問題を解決するために[exorcist](https://npmjs.org/package/exorcist)を利用できます。
+このツールはインライン化されているソースマップを独立したファイルに分離してくれます。次の例では`bundle.map.js`という名前のファイルにソースマップを分離しています:
 
 ``` sh
 browserify main.js --debug | exorcist bundle.js.map > bundle.js
