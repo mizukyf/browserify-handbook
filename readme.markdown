@@ -720,20 +720,21 @@ http.createServer(function (req, res) {
 
 ## grunt
 
-If you use grunt, you'll probably want to use the
-[grunt-browserify](https://www.npmjs.org/package/grunt-browserify) plugin.
+もしgruntを使用されているのであれば、たぶん
+[grunt-browserify](https://www.npmjs.org/package/grunt-browserify)
+を利用したくなることでしょう。
 
 ## gulp
 
-If you use gulp, you should use the browserify API directly.
+もしgulpを使用されているのであれば、browserifyの公開するAPIを直接利用することになるでしょう。
 
-Here is
-[a guide for getting started](http://viget.com/extend/gulp-browserify-starter-faq)
-with gulp and browserify.
+こちらにgulpとbrowserifyを使用した開発フローの
+[導入のためのガイド](http://viget.com/extend/gulp-browserify-starter-faq)
+があります。
 
-Here is a guide on how to [make browserify builds fast with watchify using
-gulp](https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md)
-from the official gulp recipes.
+こちらには
+[gulpを使用した開発フローにおいてwatchifyによりbrowserifyのビルドを高速化する](https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md)
+方法についてのガイドがあります。
 
 # builtins
 
