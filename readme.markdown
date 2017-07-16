@@ -779,12 +779,12 @@ Node.jsランタイムでの開発経験がない場合、それらのグロー�
 
 ## [Buffer](http://nodejs.org/docs/latest/api/buffer.html)
 
-In node all the file and network APIs deal with Buffer chunks. In browserify the
-Buffer API is provided by [buffer](https://www.npmjs.org/package/buffer), which
-uses augmented typed arrays in a very performant way with fallbacks for old
-browsers.
+Node.jsランタイムにおいてはファイルとネットワークに関するAPIはすべてBufferチャンクを処理するように作られています。
+browserifyにおいて、Buffer APIは[buffer](https://www.npmjs.org/package/buffer)モジュールにより提供されます。
+このBufferは拡張されたTypedArrayを用いて非常に効率よく処理されます。
+TypedArrayを利用できない古いブラウザではフォールバックが利用されます。
 
-Here's an example of using `Buffer` to convert a base64 string to hex:
+次に示すのは`Buffer`を利用してbase64文字列を16進数文字列に変換する例です:
 
 ```
 var buf = Buffer('YmVlcCBib29w', 'base64');
@@ -792,7 +792,7 @@ var hex = buf.toString('hex');
 console.log(hex);
 ```
 
-This example will print:
+プログラムを実行すると次のように出力がなされるでしょう:
 
 ```
 6265657020626f6f70
