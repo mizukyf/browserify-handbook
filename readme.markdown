@@ -1073,24 +1073,24 @@ module.exports = function (x) { return src.replace(x, 'zzz') };
 `"browser"`フィールド同様、package.jsonにおけるトランスフォームの設定は
 当該のパッケージのローカルのコードにしか適用されません。理由についても同様です。
 
-### configuring transforms
+### トランスフォームの構成変更
 
-Sometimes a transform takes configuration options on the command line. To apply these
-from package.json you can do the following.
+トランスフォームによってはコマンドラインから構成変更のためのオプションを指定できることがあります。
+またそれらのオプションをpackage.jsonから指定することもできます。
 
-**on the command line**
+**コマンドラインで指定する**
 ```
 browserify -t coffeeify \
            -t [ browserify-ngannotate --ext .coffee --bar ] \
            index.coffee > index.js
 ```
 
-**in package.json**
+**package.jsonで指定する**
 ``` json
 "browserify": {
   "transform": [
     "coffeeify",
-    ["browserify-ngannotate", {"ext": ".coffee", bar: true}]
+    ["browserify-ngannotate", {"ext": ".coffee", "bar": true}]
   ]
 }
 ```
