@@ -800,17 +800,19 @@ console.log(hex);
 
 ## [process](http://nodejs.org/docs/latest/api/process.html#process_process)
 
-In node, `process` is a special object that handles information and control for
-the running process such as environment, signals, and standard IO streams.
+Node.jsにおいて、`process`は環境変数やシグナル、標準入出力ストリームなど実行中のプロセスに関する
+情報とその制御を処理するための特別なオブジェクトです。
 
-Of particular consequence is the `process.nextTick()` implementation that
-interfaces with the event loop.
+中でもイベント・ループとともに用いられる`process.nextTick()`の実装はことに重要です。
 
 In browserify the process implementation is handled by the
 [process module](https://www.npmjs.org/package/process) which just provides
 `process.nextTick()` and little else.
+browserifyにおいてprocessの実装は
+[process module](https://www.npmjs.org/package/process)モジュールにより処理されています。
+このモジュールは`process.nextTick()`とその他ほんのわずかのAPIだけを提供します。
 
-Here's what `process.nextTick()` does:
+次の例を見れば`process.nextTick()`が何をするものか理解できるでしょう:
 
 ```
 setTimeout(function () {
@@ -824,7 +826,7 @@ process.nextTick(function () {
 console.log('first');
 ```
 
-This script will output:
+このスクリプトは次のような出力をします:
 
 ```
 first
@@ -832,8 +834,8 @@ second
 third
 ```
 
-`process.nextTick(fn)` is like `setTimeout(fn, 0)`, but faster because
-`setTimeout` is artificially slower in javascript engines for compatibility reasons.
+ご覧のように`process.nextTick(fn)`は`setTimeout(fn, 0)`に似ていますが、それよりも速く動いています。
+それというのも`setTimeout`は互換性の理由から意図的に遅く動くようにJavaScriptエンジンにより制御されているからです。
 
 ## [global](http://nodejs.org/docs/latest/api/all.html#all_global)
 
