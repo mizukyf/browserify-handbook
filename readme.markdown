@@ -878,10 +878,10 @@ here in foo/bar.js, __filename is: /foo/bar.js
 
 ## [__dirname](http://nodejs.org/docs/latest/api/all.html#all_dirname)
 
-`__dirname` is the directory of the current file. Like `__filename`, `__dirname`
-is rooted at the `opts.basedir`.
+`__dirname`は現在のファイルのディレクトリのパスです。`__filename`と同じで、
+`__dirname`のルートもまた`opts.basedir`により規定されます。
 
-Here's an example of how `__dirname` works:
+次に`__dirname`がどのようにはたらくかを示します:
 
 main.js:
 
@@ -896,7 +896,7 @@ x/y/z/abc.js:
 console.log('in abc.js, __dirname=' + __dirname);
 ```
 
-output:
+出力は次のようになります:
 
 ```
 $ browserify main.js | node
