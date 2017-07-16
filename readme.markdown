@@ -845,13 +845,13 @@ browserifyにおいては、`global`はまさしく`window`のエイリアスに
 
 ## [__filename](http://nodejs.org/docs/latest/api/all.html#all_filename)
 
-`__filename` is the path to the current file, which is different for each file.
+`__filename`は現在のファイルのパスです。各ファイルでその内容は変わってきます。
 
-To prevent disclosing system path information, this path is rooted at the
-`opts.basedir` that you pass to `browserify()`, which defaults to the
-[current working directory](https://en.wikipedia.org/wiki/Current_working_directory).
+システムのパス情報が公開されてしまうのを防ぐため、このパスのルートは
+`browserify()`に渡されたオプション情報の`opts.basedir`の項目で規定されたものになります。
+そしてこの項目の既定値は[カレントディレクトリ](https://en.wikipedia.org/wiki/Current_working_directory)です。
 
-If we have a `main.js`:
+仮に`main.js`というファイルがあったとします:
 
 ``` js
 var bar = require('./foo/bar.js');
@@ -860,7 +860,7 @@ console.log('here in main.js, __filename is:', __filename);
 bar();
 ```
 
-and a `foo/bar.js`:
+そして`foo/bar.js`というファイルも:
 
 ``` js
 module.exports = function () {
@@ -868,7 +868,7 @@ module.exports = function () {
 };
 ```
 
-then running browserify starting at `main.js` gives this output:
+`main.js`と同じディレクトリでbrowserifyを実行すると次のような出力が得られます:
 
 ```
 $ browserify main.js | node
