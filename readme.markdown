@@ -49,7 +49,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [トランスフォームを実装する](#トランスフォームを実装する)
 - [package.json](#package.json)
   - [browserフィールド](#browserフィールド)
-  - [browserify.transform field](#browserifytransform-field)
+  - [browserify.transformフィールド](#browserify.transformフィールド)
 - [finding good modules](#finding-good-modules)
   - [module philosophy](#module-philosophy)
 - [organizing modules](#organizing-modules)
@@ -1039,12 +1039,12 @@ browserifyは静的解析の結果に従いそれが必要なら両方の依存�
 同様に、あなたのパッケージのローカルな構成変更が、
 モジュールの依存性グラフの果の果てまで波及してしまうようなことも心配せずに住みます。
 
-## browserify.transform field
+## browserify.transformフィールド
 
-You can configure transforms to be automatically applied when a module is loaded
-in a package's `browserify.transform` field. For example, we can automatically
-apply the [brfs](https://npmjs.org/package/brfs) transform with this
-package.json:
+`browserify.transform`フィールドを定義することで、
+パッケージ内のモジュールが読み込まれるとき、トランスフォームが自動的に適用されるよう指定することができます。
+例えば、[brfs](https://npmjs.org/package/brfs)トランスフォームを自動適用したい場合は、
+package.jsonに次のように記述します:
 
 ``` json
 {
@@ -1057,7 +1057,7 @@ package.json:
 }
 ```
 
-Now in our `main.js` we can do:
+さて、`main.js`は次のようにします:
 
 ``` js
 var fs = require('fs');
@@ -1066,12 +1066,12 @@ var src = fs.readFileSync(__dirname + '/foo.txt', 'utf8');
 module.exports = function (x) { return src.replace(x, 'zzz') };
 ```
 
-and the `fs.readFileSync()` call will be inlined by brfs without consumers of
-the module having to know. You can apply as many transforms as you like in the
-transform array and they will be applied in order.
+すると、`fs.readFileSync()`呼び出しはコンパイル時にbrfsによりインライン化されます。
+このモジュールを使用する側のコードはこの変化を知る必要がありません。
+必要ならトランスフォームはいくらでも指定できます。それらは配列で指定された順番で実行されてゆきます。
 
-Like the `"browser"` field, transforms configured in package.json will only
-apply to the local package for the same reasons.
+`"browser"`フィールド同様、package.jsonにおけるトランスフォームの設定は
+当該のパッケージのローカルのコードにしか適用されません。理由についても同様です。
 
 ### configuring transforms
 
