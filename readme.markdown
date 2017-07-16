@@ -839,9 +839,9 @@ third
 
 ## [global](http://nodejs.org/docs/latest/api/all.html#all_global)
 
-In node, `global` is the top-level scope where global variables are attached
-similar to how `window` works in the browser. In browserify, `global` is just an
-alias for the `window` object.
+Node.jsにおいて、`global`はトップレベル・スコープであり、
+ブラウザにおける`window`のようにグローバル変数が関連付けられるオブジェクトです。
+browserifyにおいては、`global`はまさしく`window`のエイリアスに他なりません。
 
 ## [__filename](http://nodejs.org/docs/latest/api/all.html#all_filename)
 
