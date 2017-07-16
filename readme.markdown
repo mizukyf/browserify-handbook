@@ -48,7 +48,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
 - [トランスフォーム](#トランスフォーム)
   - [トランスフォームを実装する](#トランスフォームを実装する)
 - [package.json](#package.json)
-  - [browser field](#browser-field)
+  - [browserフィールド](#browserフィールド)
   - [browserify.transform field](#browserifytransform-field)
 - [finding good modules](#finding-good-modules)
   - [module philosophy](#module-philosophy)
@@ -958,14 +958,13 @@ Node.jsのStreamがどのように機能するのか、より詳しい情報に�
 
 # package.json
 
-## browser field
+## browserフィールド
 
-You can define a `"browser"` field in the package.json of any package that will
-tell browserify to override lookups for the main field and for individual
-modules.
+package.jsonの`"browser"`フィールドを定義することで、browserifyに対して
+`"main"`フィールドの内容を上書きするようパッケージ個別に設定ができます。
 
-If you have a module with a main entry point of `main.js` for node but have a
-browser-specific entry point at `browser.js`, you can do:
+例えば、パッケージのNode.jsランタイム向けのエントリーポイントは`main.js`で提供されており、
+一方ブラウザ向けのそれが `browser.js`で提供されている場合、次のようにすることができます:
 
 ``` json
 {
@@ -976,21 +975,21 @@ browser-specific entry point at `browser.js`, you can do:
 }
 ```
 
-Now when somebody does `require('mypkg')` in node, they will get the exports
-from `main.js`, but when they do `require('mypkg')` in a browser, they will get
-the exports from `browser.js`.
+このようにしたとき、
+Node.jsランタイムで`require('mypkg')`を実行すると`main.js`がエクスポートするオブジェクトが得られますが、
+ブラウザのランタイムで`require('mypkg')`を実行すると`browser.js`がエクスポートするオブジェクトが得られます。
 
-Splitting up whether you are in the browser or not with a `"browser"` field in
-this way is greatly preferrable to checking whether you are in a browser at
-runtime because you may want to load different modules based on whether you are
-in node or the browser. If the `require()` calls for both node and the browser
-are in the same file, browserify's static analysis will include everything
-whether you use those files or not.
+Node.jsで実行するときとブラウザで実行するときとで読み込みたいモジュールは異なってくるのですから、
+`"browser"`フィールドを指定することでバンドルする対象コードを切り替えるこの手法は、
+実行時にロジカルに判断する方法よりもよほど好ましいものです。
+Node.jsとブラウザ双方のランタイムのための`require()`呼び出しが同じファイルにある場合、
+browserifyは静的解析の結果に従いそれが必要なら両方の依存性を、
+さもなくばいずれか必要な方の依存性だけをバンドル化の対象に含めます。
 
-You can do more with the "browser" field as an object instead of a string.
+ところで、"browser"フィールドには文字列の代わりにオブジェクトを指定することもできます。
 
-For example, if you only want to swap out a single file in `lib/` with a
-browser-specific version, you could do:
+例えば、エントリーポイントではなくパッケージを構成するファイルのうち`lib/`配下の1ファイルだけを
+ブラウザ向けのバージョンに差し替えたいという場合、次のようにすることができます:
 
 ``` json
 {
@@ -1003,7 +1002,7 @@ browser-specific version, you could do:
 }
 ```
 
-or if you want to swap out a module used locally in the package, you can do:
+あるいはまた、パッケージ内で使用している依存性モジュールを別のものに置き換えたい場合、次のようにすることができます:
 
 ``` json
 {
@@ -1016,8 +1015,9 @@ or if you want to swap out a module used locally in the package, you can do:
 }
 ```
 
-You can ignore files (setting their contents to the empty object) by setting
-their values in the browser field to `false`:
+"browser"フィールドのオブジェクトのプロパティに`false`を指定することで、
+当該モジュールを無視する（本来のモジュールがエクスポートするオブジェクトの代わりに空のオブジェクトが使用される）
+ようにさせることもできます:
 
 ``` json
 {
@@ -1030,12 +1030,14 @@ their values in the browser field to `false`:
 }
 ```
 
-The browser field *only* applies to the current package. Any mappings you put
-will not propagate down to its dependencies or up to its dependents. This
-isolation is designed to protect modules from each other so that when you
-require a module you won't need to worry about any system-wide effects it might
-have. Likewise, you shouldn't need to wory about how your local configuration
-might adversely affect modules far away deep into your dependency graph.
+"browser"フィールドは現在のパッケージに *のみ* 適用されます。
+例えばあなたがいかなるマッピング情報を指定したとしても、当該パッケージが依存する先の他のパッケージや、
+当該パッケージに依存する他のパッケージに対して、推移的に影響を及ぼすことはありません。
+この分離があるおかげであなたのモジュールを他のモジュール群における設定から守られます。
+そのためあなたが`require()`を使用して依存性モジュールを読み込んだからといって、
+当該の依存性モジュールからシステム全般に渡る影響が生じるようなことは心配せずに済みます。
+同様に、あなたのパッケージのローカルな構成変更が、
+モジュールの依存性グラフの果の果てまで波及してしまうようなことも心配せずに住みます。
 
 ## browserify.transform field
 
