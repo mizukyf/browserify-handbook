@@ -46,7 +46,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [__filename](#__filename)
   - [__dirname](#__dirname)
 - [トランスフォーム](#トランスフォーム)
-  - [writing your own](#writing-your-own)
+  - [トランスフォームを実装する](#トランスフォームを実装する)
 - [package.json](#package.json)
   - [browser field](#browser-field)
   - [browserify.transform field](#browserifytransform-field)
@@ -931,10 +931,10 @@ b.transform('coffeeify');
 bundle.jsはCoffeeScriptで記述されたオリジナルのソースファイルにマッピングされるということです。
 FirebugやChromeのインスペクタを利用してアプリケーションをデバッグする際、これはとても便利でしょう。
 
-## writing your own
+## トランスフォームを実装する
 
-Transforms implement a simple streaming interface. Here is a transform that
-replaces `$CWD` with the `process.cwd()`:
+トランスフォームはシンプルなストリーム操作を実装するだけで作成できます。
+次に示すのは`$CWD`を`process.cwd()`の返す値で置き換えるトランスフォームです:
 
 ``` js
 var through = require('through2');
@@ -947,16 +947,16 @@ module.exports = function (file) {
 };
 ```
 
-The transform function fires for every `file` in the current package and returns
-a transform stream that performs the conversion. The stream is written to and by
-browserify with the original file contents and browserify reads from the stream
-to obtain the new contents.
+トランスフォーム関数は現在のパッケージのファイルの1つ1つについて実行され、
+都度トランスフォーム・ストリームを生成して返します。
+browserifyはストリームに対してオリジナルのファイルの内容を書き込み、
+続いて同じストリームから変換後のファイルの内容を読み取るのです。
 
-Simply save your transform to a file or make a package and then add it with
-`-t ./your_transform.js`.
+実装したトランスフォームは単にファイルとして保存するかnpmパッケージ化した上で、
+コマンドラインで`-t ./your_transform.js`のように指定して使用します。
 
-For more information about how streams work, check out the
-[stream handbook](https://github.com/substack/stream-handbook).
+Node.jsのStreamがどのように機能するのか、より詳しい情報については
+[stream handbook](https://github.com/substack/stream-handbook)（[邦訳](https://github.com/meso/stream-handbook)）を参照してください。
 
 # package.json
 
