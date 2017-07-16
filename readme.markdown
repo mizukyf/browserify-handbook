@@ -45,7 +45,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [global](#global)
   - [__filename](#__filename)
   - [__dirname](#__dirname)
-- [transforms](#transforms)
+- [トランスフォーム](#トランスフォーム)
   - [writing your own](#writing-your-own)
 - [package.json](#package.json)
   - [browser field](#browser-field)
@@ -904,33 +904,32 @@ in abc.js, __dirname=/x/y/z
 in main.js __dirname=/
 ```
 
-# transforms
+# トランスフォーム
 
-Instead of browserify baking in support for everything, it supports a flexible
-transform system that are used to convert source files in-place.
+browserifyは何でもかんでもをサポートするのではなく、
+柔軟なデータ変換（トランスフォーム）システムを採用してソースファイルを変換する道を選びました。
 
-This way you can `require()` files written in coffee script or templates and
-everything will be compiled down to javascript.
+結果として、CoffeeScriptやテンプレート、その他何であれJavaScriptにコンパイルができるようになりました。
 
-To use [coffeescript](http://coffeescript.org/) for example, you can use the
-[coffeeify](https://www.npmjs.org/package/coffeeify) transform.
-Make sure you've installed coffeeify first with `npm install coffeeify` then do:
+例えば[CoffeeScript](http://coffeescript.org/)をコンパイルする場合、
+[coffeeify](https://www.npmjs.org/package/coffeeify)モジュールが提供するトランスフォームを利用します。
+`npm install coffeeify`によりモジュールをインストールした上で、次のようにコマンドを実行します:
 
 ```
 $ browserify -t coffeeify main.coffee > bundle.js
 ```
 
-or with the API you can do:
+もしくはbrowserifyのAPIを利用して次のようにすることもできます:
 
 ```
 var b = browserify('main.coffee');
 b.transform('coffeeify');
 ```
 
-The best part is, if you have source maps enabled with `--debug` or
-`opts.debug`, the bundle.js will map exceptions back into the original coffee
-script source files. This is very handy for debugging with firebug or chrome
-inspector.
+トランスフォームのすばらしいところは、
+上述の例で`--debug`もしくは`opts.debug`でソースマップ生成を有効化している場合、
+bundle.jsはCoffeeScriptで記述されたオリジナルのソースファイルにマッピングされるということです。
+FirebugやChromeのインスペクタを利用してアプリケーションをデバッグする際、これはとても便利でしょう。
 
 ## writing your own
 
