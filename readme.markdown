@@ -39,7 +39,7 @@ browserifyが利用するモジュール・システムはNode.jsが利用する
   - [APIを直接利用する](#apiを直接利用する)
   - [grunt](#grunt)
   - [gulp](#gulp)
-- [builtins](#builtins)
+- [組み込みオブジェクト](#組み込みオブジェクト)
   - [Buffer](#Buffer)
   - [process](#process)
   - [global](#global)
@@ -736,11 +736,10 @@ http.createServer(function (req, res) {
 [gulpを使用した開発フローにおいてwatchifyによりbrowserifyのビルドを高速化する](https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md)
 方法についてのガイドがあります。
 
-# builtins
+# 組み込みオブジェクト
 
-In order to make more npm modules originally written for node work in the
-browser, browserify provides many browser-specific implementations of node core
-libraries:
+もともとNode.jsランタイム向けに開発されたモジュールがブラウザのランタイムでもなるべくそのまま動作するよう、
+browserifyはブラウザ環境向けに実装し直したNode.jsコア・ライブラリを提供しています:
 
 * [assert](https://npmjs.org/package/assert)
 * [buffer](https://npmjs.org/package/buffer)
@@ -764,18 +763,19 @@ libraries:
 * [vm](https://npmjs.org/package/vm-browserify)
 * [zlib](https://npmjs.org/package/browserify-zlib)
 
-events, stream, url, path, and querystring are particularly useful in a browser
-environment.
+events、stream、url、pathそしてquerystringはブラウザ環境でもとくに役立つものでしょう。
 
-Additionally, if browserify detects the use of `Buffer`, `process`, `global`,
-`__filename`, or `__dirname`, it will include a browser-appropriate definition.
+加うるに、browserifyはコードの中で`Buffer`や`process`、`global`、`__filename`、`__dirname`
+が利用されていることを検知すると、ブラウザ向けに適切に定義しなおされたそれを読み込みます。
 
-So even if a module does a lot of buffer and stream operations, it will probably
-just work in the browser, so long as it doesn't do any server IO.
+モジュールがbufferやstreamを利用したコードを含んでいる場合でも、
+サーバー上のIOを行ったりしない限り、だいたいはブラウザ上で正しく動作します。
 
-If you haven't done any node before, here are some examples of what each of
-those globals can do. Note too that these globals are only actually defined when
-you or some module you depend on uses them.
+Node.jsランタイムでの開発経験がない場合、それらのグローバル・オブジェクトで何ができるのか、
+次に示す例でいくばくか理解できることでしょう。
+注意すべき点として、これらのグローバル・オブジェクトはあなたのコード
+もしくはあなたのコードが依存するモジュールがそれを利用している場合に限って
+バンドルに組み込まれます。
 
 ## [Buffer](http://nodejs.org/docs/latest/api/buffer.html)
 
